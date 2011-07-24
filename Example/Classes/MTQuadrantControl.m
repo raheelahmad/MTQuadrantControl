@@ -69,14 +69,12 @@
 	}
 }
 
-- (void)setNumber:(NSNumber *)number 
-		  caption:(NSString *)caption 
+- (void)setTitle:(NSString *)title
 		   action:(SEL)action
 	  forLocation:(MTQuadrantLocation)location 
 {
 	MTQuadrantView * quadrantView = [self quadrantAtLocation:location];
-	quadrantView.number = number;
-	quadrantView.caption = caption;
+	quadrantView.title = title;
 	quadrantView.action = action;
 }
 
@@ -114,6 +112,8 @@
 		case BottomLeftLocation:
 		case BottomRightLocation:
 			[delegate performSelector:[[self quadrantAtLocation:activeLocation] action]];
+		case NullQuadrant:
+			break;
 	}
 	
 	activeLocation = NullQuadrant;
@@ -173,6 +173,8 @@
 				bottomRightQuadrant.highlighted = YES;
 				activeRect = bottomRightQuadrant.frame;
 				break;
+			case NullQuadrant:
+				break;
 		}
 		
 		size_t num_locations = 2;
@@ -207,7 +209,7 @@ static NSNumberFormatter * numberFormatter;
 
 @implementation MTQuadrantView
 
-@synthesize number, caption, highlighted, action;
+@synthesize title, highlighted, action;
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {	
@@ -220,19 +222,13 @@ static NSNumberFormatter * numberFormatter;
 
 - (void)drawRect:(CGRect)rect {
 	[(self.highlighted ? [UIColor whiteColor] : [UIColor blackColor]) set];
-	NSString * numberString = [self.numberFormatter stringFromNumber:self.number];
-	CGSize numberTextSize = [numberString sizeWithFont:[UIFont boldSystemFontOfSize:22]
+	CGSize numberTextSize = [title sizeWithFont:[UIFont boldSystemFontOfSize:20]
 												  constrainedToSize:self.bounds.size];
-	CGPoint numberDrawPoint = CGPointMake(round((self.bounds.size.width - numberTextSize.width) / 2.0), 3.0f);
-	[numberString drawAtPoint:numberDrawPoint 
+	CGPoint numberDrawPoint = CGPointMake(round((self.bounds.size.width - numberTextSize.width) / 2.0), round((self.bounds.size.height - numberTextSize.height) / 2.0));
+	[title drawAtPoint:numberDrawPoint 
 					 withFont:[UIFont boldSystemFontOfSize:22]];
 	
 	[(self.highlighted ? [UIColor whiteColor] : [UIColor darkGrayColor]) set];
-	CGSize captionTextSize = [self.caption sizeWithFont:[UIFont boldSystemFontOfSize:12]
-									  constrainedToSize:self.bounds.size];
-	CGPoint captionDrawPoint = CGPointMake(round((self.bounds.size.width - captionTextSize.width) / 2.0), 27.0f);
-	[self.caption drawAtPoint:captionDrawPoint 
-					 withFont:[UIFont boldSystemFontOfSize:12]];
 }
 
 - (NSNumberFormatter *)numberFormatter {
@@ -245,8 +241,7 @@ static NSNumberFormatter * numberFormatter;
 }
 
 - (void)dealloc {
-	[number release];
-	[caption release];
+	[title release];
 	[super dealloc];
 }
 

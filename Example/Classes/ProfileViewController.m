@@ -53,26 +53,22 @@ typedef enum {
 	
 	self.tableSectionFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 130)];
 	
-	MTQuadrantControl * quadrantControl = [[[MTQuadrantControl alloc] initWithFrame:CGRectMake(10, 20, 300, 90)] autorelease];
+	MTQuadrantControl * quadrantControl = [[[MTQuadrantControl alloc] initWithFrame:CGRectMake(5, 20, 310, 120)] autorelease];
 	quadrantControl.delegate = self;
 	
-	[quadrantControl setNumber:[NSNumber numberWithInt:127]
-					   caption:@"following"
+	[quadrantControl setTitle:@"Quadrant 1"
 						action:@selector(didSelectFollowingQuadrant)
 				   forLocation:TopLeftLocation];
 	
-	[quadrantControl setNumber:[NSNumber numberWithInt:1728]
-					   caption:@"tweets" 
+	[quadrantControl setTitle:@"Quadrant 2"
 						action:@selector(didSelectTweetsQuadrant)
 				   forLocation:TopRightLocation];
 	
-	[quadrantControl setNumber:[NSNumber numberWithInt:352] 
-					   caption:@"followers" 
+	[quadrantControl setTitle:@"Quadrant 3"
 						action:@selector(didSelectFollowersQuadrant)
 				   forLocation:BottomLeftLocation];
 	
-	[quadrantControl setNumber:[NSNumber numberWithInt:61] 
-					   caption:@"favorites" 
+	[quadrantControl setTitle:@"Quadrant 4"
 						action:@selector(didSelectFavoritesQuadrant)
 				   forLocation:BottomRightLocation];
 	

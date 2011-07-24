@@ -46,8 +46,7 @@ typedef enum {
 
 @property (nonatomic, assign) id delegate;
 
-- (void)setNumber:(NSNumber *)number 
-		  caption:(NSString *)caption 
+- (void)setTitle:(NSString *)title 
 		   action:(SEL)action 
 	  forLocation:(MTQuadrantLocation)location;
 - (MTQuadrantView *)quadrantAtLocation:(MTQuadrantLocation)location;
@@ -56,14 +55,12 @@ typedef enum {
 @end
 
 @interface MTQuadrantView : UIView {
-	NSNumber * number;
-	NSString * caption;
+	NSString * title;
 	BOOL highlighted;
 	SEL action;
 }
 
-@property (nonatomic, retain) NSNumber * number;
-@property (nonatomic, retain) NSString * caption;
+@property (nonatomic, retain) NSString *title;
 @property (nonatomic, assign, getter = isHighlighted) BOOL highlighted;
 @property (nonatomic, assign) SEL action;
 @property (readonly) NSNumberFormatter * numberFormatter;
