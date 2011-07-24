@@ -35,9 +35,9 @@
 		activeLocation = NullQuadrant;
 		
 		self.backgroundColor = [UIColor whiteColor];
-		self.layer.cornerRadius = 8.0f;
+		self.layer.cornerRadius = 14.0f;
 		self.layer.borderWidth = 1.0f;
-		self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+		self.layer.borderColor = [[UIColor grayColor] CGColor];
 		self.layer.masksToBounds = YES;
 		
 		topLeftQuadrant = [[MTQuadrantView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, width, height)];
@@ -76,6 +76,7 @@
 	MTQuadrantView * quadrantView = [self quadrantAtLocation:location];
 	quadrantView.title = title;
 	quadrantView.action = action;
+	[quadrantView setNeedsDisplay];
 }
 
 - (MTQuadrantLocation)locationAtPoint:(CGPoint)point {
@@ -226,7 +227,7 @@ static NSNumberFormatter * numberFormatter;
 												  constrainedToSize:self.bounds.size];
 	CGPoint numberDrawPoint = CGPointMake(round((self.bounds.size.width - numberTextSize.width) / 2.0), round((self.bounds.size.height - numberTextSize.height) / 2.0));
 	[title drawAtPoint:numberDrawPoint 
-					 withFont:[UIFont boldSystemFontOfSize:22]];
+					 withFont:[UIFont boldSystemFontOfSize:18.0f]];
 	
 	[(self.highlighted ? [UIColor whiteColor] : [UIColor darkGrayColor]) set];
 }
